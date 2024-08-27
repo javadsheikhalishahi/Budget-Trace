@@ -1,3 +1,4 @@
+"use client"
 import { HandCoins } from "lucide-react";
 
 function Logo() {

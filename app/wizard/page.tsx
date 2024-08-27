@@ -1,12 +1,12 @@
-"use client";
+
+import { CurrencyComboBox } from "@/components/CurrencyComboBox";
+import Logo from "@/components/Logo";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { currentUser } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { CurrencyComboBox } from "../CurrencyComboBox";
-import Logo from "../Logo";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Separator } from "../ui/separator";
 
 
 async function page() {
@@ -16,9 +16,10 @@ async function page() {
   }
   return (
     <div className="flex container max-w-2xl items-center justify-between gap-4 flex-col" suppressHydrationWarning={true}>
-      <div className="text-center text-2xl">
-      Welcome, <span className="ml-2 font-bold">{user.firstName}</span>
-         
+        <div>
+      <h1 className="text-center text-2xl">
+      Welcome, <span className="ml-2 font-bold">{user.firstName}!👋</span>
+       </h1>  
         
         <h2 className="text-center text-base mt-4 text-muted-foreground">
           Let &apos;s get start by setting up your currency
@@ -40,10 +41,10 @@ async function page() {
         </CardContent>
       </Card>
       <Separator />
-        <Button className="w-full" asChild>
+        <Button className="w-3/4" asChild>
           <Link href={"/"}>I&apos;m done! Take me to the dashboard</Link>
         </Button>
-        <div className="mt-7">
+        <div className="mt-5">
           <Logo />
         </div>
     </div>
