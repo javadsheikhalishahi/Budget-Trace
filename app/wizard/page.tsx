@@ -17,19 +17,19 @@ async function page() {
   return (
     <div className="flex container max-w-2xl items-center justify-between gap-4 flex-col" suppressHydrationWarning={true}>
         <div>
-      <h1 className="text-center text-2xl">
-      Welcome, <span className="ml-2 font-bold">{user.firstName}!👋</span>
+      <h1 className="text-center text-3xl font-medium bg-gradient-to-r from-amber-600 to-orange-800 rounded-3xl pt-4 pb-4 animate-bounce">
+      Welcome,<span className="ml-2 font-bold ">{user.firstName}!👋</span>
        </h1>  
         
         <h2 className="text-center text-base mt-4 text-muted-foreground">
-          Let &apos;s get start by setting up your currency
+          Let&apos;s get start by setting up your currency
         </h2>
         <h3 className="text-center text-sm text-muted-foreground mt-2">
           You can change these setting at any time you want
         </h3>
       </div>
       <Separator />
-      <Card className="w-full">
+      <Card className="w-full border-solid border-2 border-amber-600 shadow-2xl shadow-amber-600/20">
         <CardHeader>
           <CardTitle>Currency</CardTitle>
           <CardDescription>
@@ -41,10 +41,10 @@ async function page() {
         </CardContent>
       </Card>
       <Separator />
-        <Button className="w-3/4" asChild>
+        <Button className="w-full mt-3" asChild>
           <Link href={"/"}>I&apos;m done! Take me to the dashboard</Link>
         </Button>
-        <div className="mt-5">
+        <div className="mt-6 animate-slow-pulse">
           <Logo />
         </div>
     </div>
