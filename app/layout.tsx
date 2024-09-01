@@ -2,8 +2,8 @@ import RootProviders from "@/components/providers/RootProviders";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +27,10 @@ export default function RootLayout({
         }}
         suppressHydrationWarning={true}
       >
-        <body className={inter.className}><RootProviders>{children}</RootProviders></body>
+        <body className={inter.className}>
+          <Toaster  position="bottom-right" />
+          <RootProviders>{children}</RootProviders>
+        </body>
       </html>
     </ClerkProvider>
   );
