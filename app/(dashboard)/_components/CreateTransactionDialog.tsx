@@ -28,8 +28,8 @@ function CreateTransactionDialog({trigger, type}: Props) {
         <DialogTrigger asChild>{trigger}</DialogTrigger>
         <DialogContent>
             <DialogHeader>
-                <DialogTitle>Create a new<span className={cn("m-2",
-                    type === "income" ? "text-emerald-500" : "text-rose-500"
+                <DialogTitle>Create a new<span className={cn("m-1 font-extrabold",
+                    type === "income" ? "text-emerald-600" : "text-rose-600"
                 )}>
                     {type}
                     </span>
@@ -76,7 +76,7 @@ function CreateTransactionDialog({trigger, type}: Props) {
                     name="category"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Category</FormLabel>
+                            <FormLabel className="pr-5">Category</FormLabel>
                             <FormControl>
                                 <CategoryPicker type={type} />
                             </FormControl>

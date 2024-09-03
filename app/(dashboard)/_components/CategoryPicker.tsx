@@ -6,6 +6,7 @@ import { TransactionType } from '@/lib/types';
 import { Category } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import CreateCategoryDialog from './CreateCategoryDialog';
 
 interface Props{
     type: TransactionType;
@@ -23,13 +24,14 @@ function CategoryPicker({type} : Props) {
     );
   return <Popover open={open} onOpenChange={setOpen}>
     <PopoverTrigger asChild>
-        <Button variant={"outline"} role="combobox" aria-expanded= {open} className='w-[150px] justify-between'>{selectedCategory ? ( <CategoryRow category = {selectedCategory} />) : ( "Select category")} </Button>
+        <Button variant={"outline"} role="combobox" aria-expanded= {open} className='w-[200px] justify-between border-2 font-bold px-9'>{selectedCategory ? ( <CategoryRow category = {selectedCategory} />) : ( "Select Category")} </Button>
     </PopoverTrigger>
-    <PopoverContent className='w-[150px] p-0'>
+    <PopoverContent className='w-[200px] p-0'>
         <Command onSubmit={e => { 
             e.preventDefault()
         }}>
-        <CommandInput placeholder='Search category....'/>
+        <CommandInput placeholder='Search category...'/>
+        <CreateCategoryDialog type={type} />
         </Command>
         </PopoverContent>
   </Popover>
