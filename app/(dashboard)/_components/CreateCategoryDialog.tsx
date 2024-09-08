@@ -1,45 +1,53 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-    Dialog,
-    DialogClose,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
 } from "@/components/ui/form";
 import { TransactionType } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import {
-    CreateCategorySchema,
-    CreateCategorySchemaType,
+  CreateCategorySchema,
+  CreateCategorySchemaType,
 } from "@/schema/categories";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CircleOff, PlusSquare } from "lucide-react";
+import { CircleOff, Loader2, PlusSquare } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import Data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-import { useState } from "react";
+import { Category } from "@prisma/client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-
+import { toast } from "sonner";
+import { CreateCategory } from "../_actions/category";
 
 interface Props {
   type: TransactionType;
+  SuccessCallback: (category:Category) => void;
 }
 
-function CreateCategoryDialog({ type }: Props) {
+function CreateCategoryDialog({ type, SuccessCallback }: Props) {
   const [open, setOpen] = useState(false);
   const form = useForm<CreateCategorySchemaType>({
     resolver: zodResolver(CreateCategorySchema),
@@ -47,13 +55,52 @@ function CreateCategoryDialog({ type }: Props) {
       type,
     },
   });
+
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: CreateCategory,
+    onSuccess: async (data: Category) => {
+      form.reset({
+        name: "",
+        icon: "",
+        type,
+      });
+      toast.success(`Category ${data.name} Created Successfully `, {
+        id: "create-category",
+      });
+
+      SuccessCallback(data);
+      
+      await queryClient.invalidateQueries({
+        queryKey: ["categories"],
+      });
+
+      setOpen((prev) => !prev);
+    },
+    onError: () => {
+      toast.error("Somthing went Wrong", {
+        id: "create-category",
+      });
+    },
+  });
+
+  const onSubmit = useCallback(
+    (values: CreateCategorySchemaType) => {
+      toast.loading("Creating category...", {
+        id: "create-category",
+      });
+      mutate(values);
+    },
+    [mutate]
+  );
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant={"ghost"}
           className="border-separate flex justify-start items-start
-        rounded border-b-1 px-3 py-3 text-muted-foreground hover:bg-gray-700"
+        rounded border-b-1 px-3 py-3 text-muted-foreground hover:bg-gray-300 hover:text-black"
         >
           <PlusSquare className="mr-3 h-4 w-4" />
           Create New
@@ -78,7 +125,7 @@ function CreateCategoryDialog({ type }: Props) {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
               name="name"
@@ -86,7 +133,11 @@ function CreateCategoryDialog({ type }: Props) {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input className="rounded-xl" defaultValue={""} {...field} />
+                    <Input
+                      className="rounded-xl"
+                      defaultValue={""}
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription className="font-semibold">
                     Transaction description (optional)
@@ -109,28 +160,30 @@ function CreateCategoryDialog({ type }: Props) {
                         >
                           {form.watch("icon") ? (
                             <div className="items-center flex flex-col gap-2">
-                            <span className="text-4xl" role="img">{field.value}</span>
-                            <p className="text-xs text-muted-foreground">
-                              Click to change
-                            </p>
-                          </div>
+                              <span className="text-4xl" role="img">
+                                {field.value}
+                              </span>
+                              <p className="text-xs text-muted-foreground">
+                                Click to change
+                              </p>
+                            </div>
                           ) : (
                             <div className="items-center flex flex-col gap-2">
                               <CircleOff className="h-[48px] w-[48px]" />
                               <p className="text-xs text-muted-foreground">
-                                Click to select 
+                                Click to select
                               </p>
                             </div>
                           )}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-full">
-                         <Picker
+                        <Picker
                           data={Data}
                           onEmojiSelect={(emoji: { native: string }) => {
                             field.onChange(emoji.native);
                           }}
-                          />
+                        />
                       </PopoverContent>
                     </Popover>
                   </FormControl>
@@ -143,17 +196,22 @@ function CreateCategoryDialog({ type }: Props) {
           </form>
         </Form>
         <DialogFooter>
-        <DialogClose asChild>
-            <Button type="button" variant={"secondary"} 
-            onClick={() => {
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant={"secondary"}
+              onClick={() => {
                 form.reset();
-            }}
+              }}
             >
-             Cancel
+              Cancel
             </Button>
-        </DialogClose>
-        <Button>Save</Button>
-      </DialogFooter>
+          </DialogClose>
+          <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
+            {!isPending && "Create"}
+            {isPending && <Loader2 className="animate-spin"/>}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
