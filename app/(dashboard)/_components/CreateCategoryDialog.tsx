@@ -37,9 +37,10 @@ import Data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { Category } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTheme } from "next-themes";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 import { CreateCategory } from "../_actions/category";
 
 interface Props {
@@ -57,6 +58,7 @@ function CreateCategoryDialog({ type, SuccessCallback }: Props) {
   });
 
   const queryClient = useQueryClient();
+  const theme = useTheme();
   const { mutate, isPending } = useMutation({
     mutationFn: CreateCategory,
     onSuccess: async (data: Category) => {
@@ -135,12 +137,12 @@ function CreateCategoryDialog({ type, SuccessCallback }: Props) {
                   <FormControl>
                     <Input
                       className="rounded-xl"
-                      defaultValue={""}
+                      placeholder="Category"
                       {...field}
                     />
                   </FormControl>
                   <FormDescription className="font-semibold">
-                    Transaction description (optional)
+                    This is how your category will appear in the application
                   </FormDescription>
                 </FormItem>
               )}
@@ -180,6 +182,7 @@ function CreateCategoryDialog({ type, SuccessCallback }: Props) {
                       <PopoverContent className="w-full">
                         <Picker
                           data={Data}
+                          theme={theme.resolvedTheme}
                           onEmojiSelect={(emoji: { native: string }) => {
                             field.onChange(emoji.native);
                           }}
