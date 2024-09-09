@@ -28,6 +28,18 @@ model Category {
   @@unique([name, userId, type])
 }
 
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  amount      Float
+  date        DateTime
+  description String?
+  type        String
+  category    String
+  categoryIcon String?
+}
+
+
 model Transcription {
   id           String   @id @default(uuid())
   createdAt    DateTime @default(now())
@@ -46,8 +58,8 @@ model MonthHistory {
   year Int
   month Int
   day Int
-  income Float
-  expensive Float
+  income Float   @default(0)
+  expense Float  @default(0)
 
   @@id([userID, year, month, day])
 
@@ -58,7 +70,7 @@ model YearHistory {
   year Int
   month Int
   income Float
-  expensive Float
+  expense Float
 
   @@id([userID, year, month])
 

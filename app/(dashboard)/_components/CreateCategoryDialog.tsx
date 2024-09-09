@@ -212,7 +212,7 @@ function CreateCategoryDialog({ type, SuccessCallback }: Props) {
           </DialogClose>
           <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
             {!isPending && "Create"}
-            {isPending && <Loader2 className="animate-spin"/>}
+            {isPending && <Loader2 className="animate-spin" />}
           </Button>
         </DialogFooter>
       </DialogContent>
