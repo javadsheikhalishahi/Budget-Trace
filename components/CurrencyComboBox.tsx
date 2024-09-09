@@ -63,6 +63,13 @@ export function CurrencyComboBox() {
     onError: (e) => {
       toast.error("Something went wrong!!!", {
         id: "update-currency",
+        
+          style: {
+            borderRadius: "50px",
+            background: "#ff6262",
+            color: "#fff",
+          },
+        
       });
     },
   });
@@ -70,7 +77,15 @@ export function CurrencyComboBox() {
   const selectOption = React.useCallback(
     (currency: Currency | null) => {
       if (!currency) {
-        toast.error("Please select a Currency");
+        toast.error("Please select a Currency",
+          {
+            style: {
+              borderRadius: "50px",
+              background: "#ff6262",
+              color: "#fff",
+            },
+          }
+        );
         return;
       }
       toast.loading("Updating Currency....", {

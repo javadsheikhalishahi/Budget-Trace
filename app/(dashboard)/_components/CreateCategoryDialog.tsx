@@ -82,6 +82,13 @@ function CreateCategoryDialog({ type, SuccessCallback }: Props) {
     onError: () => {
       toast.error("Somthing went Wrong", {
         id: "create-category",
+       
+          style: {
+            borderRadius: "50px",
+            background: "#ff6262",
+            color: "#fff",
+          
+        }
       });
     },
   });
