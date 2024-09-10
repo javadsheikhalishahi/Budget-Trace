@@ -38,7 +38,7 @@ function StatsCards({ from, to, userSettings }: Props) {
           value={income}
           title="Income"
           icon={
-            <TrendingUp className=" h-12 w-12 items-center rounded-lg p-2 text-emerald-500 bg-emerald-400/10" />
+            <TrendingUp className=" h-14 w-14 items-center rounded-lg p-2 text-emerald-700 bg-emerald-600/10" />
           }
         />
       </SkeletonWrapper>
@@ -49,7 +49,7 @@ function StatsCards({ from, to, userSettings }: Props) {
           value={expense}
           title="Expense"
           icon={
-            <TrendingDown className=" h-12 w-12 items-center rounded-lg p-2 text-rose-500 bg-rose-400/10" />
+            <TrendingDown className=" h-14 w-14 items-center rounded-lg p-2 text-rose-700 bg-rose-600/10" />
           }
         />
       </SkeletonWrapper>
@@ -60,7 +60,7 @@ function StatsCards({ from, to, userSettings }: Props) {
           value={balance}
           title="Balance"
           icon={
-            <Wallet2 className=" h-12 w-12 items-center rounded-lg p-2 text-violet-600 bg-violet-500/10" />
+            <Wallet2 className=" h-14 w-14 items-center rounded-lg p-2 text-violet-700 bg-violet-600/10" />
           }
         />
       </SkeletonWrapper>
@@ -91,8 +91,8 @@ function StatCard({
   return (
     <Card className="w-full h-24 flex items-center gap-2 p-4">
       {icon}
-      <div className=" items-center flex flex-col gap-0">
-        <p className="text-muted-foreground">{title}</p>
+      <div className=" items-start flex flex-col gap-0">
+        <p className="text-muted-foreground ">{title}</p>
         <CountUp
           preserveValue
           redraw={false}

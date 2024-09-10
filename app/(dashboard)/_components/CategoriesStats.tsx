@@ -3,6 +3,7 @@
 import { getCategoriesStatsResponseType } from "@/app/api/stats/categories/route";
 import SkeletonWrapper from "@/components/SkeletonWrapper";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { DateToUTCDate, GetFormatterForCurrency } from "@/lib/helpers";
 import { TransactionType } from "@/lib/types";
@@ -67,9 +68,10 @@ function CategoriesCard({
   );
 
   return (
-    <Card className="w-full h-80 col-span-6">
+    
+    <Card className="w-full h-80 col-span-6 border-2 border-amber-600">
       <CardHeader>
-        <CardTitle className="justify-between grid grid-flow-row gap-2 text-muted-foreground md:grid-flow-col">
+        <CardTitle className="justify-between grid grid-flow-row gap-2 text-muted-foreground md:grid-flow-col font-extrabold">
             {type === "income" ? "Incomes" : "Expenses"} By Category
         </CardTitle>
       </CardHeader>
@@ -93,10 +95,21 @@ function CategoriesCard({
                         return (
                             <div key={item.category} className="flex flex-col gap-2">
                                 <div className=" flex justify-between items-center">
-                                    <span className="flex items-center text-gray-400">
+                                    <span className="flex items-center font-black tracking-wider">
                                         {item.categoryIcon} {item.category}
+                                        <span className=" ml-2 text-sm text-muted-foreground">
+                                          ({percentage.toFixed(0)}%)
+                                        </span>
+                                    </span>
+                                    <span className="text-sm font-bold text-gray-400">
+                                      {formatter.format(amount)}
                                     </span>
                                 </div>
+                                <Progress value={percentage}
+                                  indicator={
+                                    type === "income" ? "bg-emerald-600" : "bg-rose-600"
+                                  }
+                                />
                             </div>
                         )
                     })}
@@ -105,5 +118,6 @@ function CategoriesCard({
         )}
       </div>
     </Card>
+    
   );
 }
