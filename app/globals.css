@@ -57,6 +57,7 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+  
 }
 
 @layer base {
@@ -67,3 +68,24 @@
     @apply bg-background text-foreground;
   }
 }
+@keyframes animate-down {
+  0% {
+    transform: translateY(-20px);
+    opacity: 3; 
+  }
+  50% {
+    transform: translateY(200px); 
+    opacity: 1; 
+  }
+  100% {
+    transform: translateY(-20px); 
+    opacity: 3;
+  }
+}
+
+.animate-down {
+  animation: animate-down 6s ease normal infinite; /* Adjust duration and easing as needed */
+}
+
+
+
