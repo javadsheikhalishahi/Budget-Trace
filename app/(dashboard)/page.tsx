@@ -22,7 +22,7 @@ async function page() {
   }
   return (
     <div className="bg-background h-full">
-      <div className="bg-card border-b">
+      <div className="bg-card border-b-4 border-t-4">
         <div className="container flex flex-wrap justify-between items-center py-7 gap-5">
           <p className="text-4xl font-bold ">
             Hello, {user.firstName}!{" "}
@@ -39,11 +39,11 @@ async function page() {
           <div className="flex gap-3 items-center">
             <CreateTransactionDialog trigger={ <Button
               variant={"outline"}
-              className="btn relative inline-flex items-center justify-start overflow-hidden transition-all bg-gray-700 rounded-xl hover:bg-white group py-1.5 px-2.5"
+              className="btn relative inline-flex items-center justify-start overflow-hidden transition-all ring-2 ring-yellow-500 bg-gray-700 rounded-xl hover:bg-white group py-1.5 px-2.5"
             >
               <span className="w-56 h-48 rounded bg-emerald-500 absolute bottom-0 left-0 translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
               <span className="relative font-bold tracking-wide w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
-                New income 🪙
+                New income <span className="text-base">🪙</span>
               </span>
             </Button>}
             type="income"
@@ -51,11 +51,11 @@ async function page() {
 
             <CreateTransactionDialog trigger= { <Button
               variant={"outline"}
-              className="btn relative inline-flex items-center justify-start overflow-hidden transition-all bg-gray-700 rounded-xl hover:bg-white group py-1.5 px-2.5"
+              className="btn relative inline-flex items-center justify-start overflow-hidden transition-all ring-2 ring-yellow-500 bg-gray-700 rounded-xl hover:bg-white group py-1.5 px-2.5"
             >
               <span className="w-56 h-48 rounded bg-rose-500 absolute bottom-0 left-0 translate-x-full ease-out duration-500 transition-all translate-y-full mb-9 ml-9 group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"></span>
               <span className="relative font-bold tracking-wide w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
-                New expense 😠
+                New expense <span className="text-base">😠</span>
               </span>
             </Button>}
             type="expense"

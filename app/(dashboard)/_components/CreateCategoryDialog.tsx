@@ -38,7 +38,7 @@ import Picker from "@emoji-mart/react";
 import { Category } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTheme } from "next-themes";
-import { useCallback, useState } from "react";
+import { ReactNode, useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { CreateCategory } from "../_actions/category";
@@ -46,9 +46,10 @@ import { CreateCategory } from "../_actions/category";
 interface Props {
   type: TransactionType;
   SuccessCallback: (category:Category) => void;
+  trigger?: ReactNode;
 }
 
-function CreateCategoryDialog({ type, SuccessCallback }: Props) {
+function CreateCategoryDialog({ type, SuccessCallback, trigger }: Props) {
   const [open, setOpen] = useState(false);
   const form = useForm<CreateCategorySchemaType>({
     resolver: zodResolver(CreateCategorySchema),
@@ -106,6 +107,9 @@ function CreateCategoryDialog({ type, SuccessCallback }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
+        {trigger ? (
+          trigger
+        ): (
         <Button
           variant={"ghost"}
           className="border-separate flex justify-start items-start
@@ -114,6 +118,7 @@ function CreateCategoryDialog({ type, SuccessCallback }: Props) {
           <PlusSquare className="mr-3 h-4 w-4" />
           Create New
         </Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
