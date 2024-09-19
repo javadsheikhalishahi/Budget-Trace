@@ -34,7 +34,7 @@ function DeleteTransactionDialog({open, setOpen, transactionId}: Props) {
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are You Absolutely Sure?</AlertDialogTitle>
-          <AlertDialogDescription>This Action can`t Be undone! This Will Permanently <span className='font-bold text-rose-600'>Delete</span> Your Category</AlertDialogDescription>
+          <AlertDialogDescription>This Action can`t Be undone! This Will Permanently <span className='font-bold text-rose-600'>Delete</span> Your Transaction</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>

@@ -26,36 +26,41 @@ const items = [
 ];
 
 function MobileNavbar() {
-   const [isOpen, setIsOpen] = useState(false);
-    return (
-      <div className="block border-separate bg-background md:hidden">
-        <nav className="flex container items-center justify-between px-9">
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant={"ghost"} size={"icon"} >
-                <MenuSquare />
-              </Button>
-            </SheetTrigger>
-            <SheetContent className="side=left w-[450px] sm:w-[540px]">
-              <Logo />
-              <div className="flex-col flex pt-4 gap-1">
-                {items.map(items => <NavbarItem key={items.label} link={items.link} label={items.label}
-                clickCallback={() => setIsOpen((prev) => !prev)}
-                />)}
-              </div>
-            </SheetContent>
-          </Sheet>
-          <div className="h-[80px] min-h-[65px] flex gap-x-4 items-center">
-            <LogoMobile />
-          </div>
-          <div className="items-center flex gap-2">
-            <ThemeSwitcherBtn />
-             <UserButton afterSignOutUrl="/sign-in" />
-          </div>
-        </nav>
-      </div>
-    );
-   }
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="block border-separate bg-background md:hidden">
+      <nav className="flex container items-center justify-between px-9">
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+          <SheetTrigger asChild>
+            <Button variant={"ghost"} size={"icon"}>
+              <MenuSquare />
+            </Button>
+          </SheetTrigger>
+          <SheetContent className="side=left w-[450px] sm:w-[540px]">
+            <Logo />
+            <div className="flex-col flex pt-4 gap-1">
+              {items.map((item) => (
+                <NavbarItem
+                  key={item.label}
+                  link={item.link}
+                  label={item.label}
+                  clickCallback={() => setIsOpen((prev) => !prev)}
+                />
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
+        <div className="h-[80px] min-h-[65px] flex gap-x-4 items-center">
+          <LogoMobile />
+        </div>
+        <div className="items-center flex gap-2">
+          <ThemeSwitcherBtn />
+          <UserButton afterSignOutUrl="/sign-in" />
+        </div>
+      </nav>
+    </div>
+  );
+}
 
 function DesktopNavbar() {
   return (
@@ -69,11 +74,12 @@ function DesktopNavbar() {
                 key={item.label}
                 link={item.link}
                 label={item.label}
+                // No need for clickCallback in DesktopNavbar
               />
             ))}
           </div>
         </div>
-        <div className=" items-center flex gap-3">
+        <div className="items-center flex gap-3">
           <ThemeSwitcherBtn />
           <UserButton afterSignOutUrl="/sign-in" />
         </div>
@@ -82,7 +88,16 @@ function DesktopNavbar() {
   );
 }
 
-function NavbarItem({ link, label, clickCallback }: { link: string; label: string, clickCallback : () => void }) {
+
+function NavbarItem({
+  link,
+  label,
+  clickCallback,
+}: {
+  link: string;
+  label: string;
+  clickCallback?: () => void; // Made clickCallback optional
+}) {
   const pathname = usePathname();
   const isActive = pathname === link;
 
@@ -96,7 +111,7 @@ function NavbarItem({ link, label, clickCallback }: { link: string; label: strin
           isActive && "text-foreground"
         )}
         onClick={() => {
-          if (clickCallback) clickCallback();
+          if (clickCallback) clickCallback(); 
         }}
       >
         {label}
@@ -107,4 +122,5 @@ function NavbarItem({ link, label, clickCallback }: { link: string; label: strin
     </div>
   );
 }
+
 export default Navbar;
