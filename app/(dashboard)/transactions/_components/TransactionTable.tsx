@@ -301,7 +301,7 @@ function RowActions({transaction}:{transaction:TransactionHistoryRow}) {
 
   return(
     <>
-    <DeleteTransactionDialog open={showDeleteDialog} setOpen={setShowDeleteDialog} transactionId={transaction.id} />
+    <DeleteTransactionDialog open={showDeleteDialog} setOpen={setShowDeleteDialog} transactionId={transaction.id.toString()} />
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant={"ghost"} className="w-8 h-8 p-0">
