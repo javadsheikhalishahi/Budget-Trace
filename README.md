@@ -1,6 +1,6 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Getting Started by folowwing steps
 
 First, run the development server:
 
@@ -28,6 +28,26 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Create Project
+
+npx create-next-app@latest
+
+## Install Clerk
+
+npm i @clerk/nextjs 
+
+## Install Necessary 
+
+you should be install (or another same) => (1)npm i export-to-csv (2)npm i @tanstack/react-table (3)npm i recharts (4)npm i react-countup (5)npm install @radix-ui/react-icons (6)npm add @prisma/client (7)npm i @emoji-mart/react (8)npm install react-hot-toast or react-toast (9)npm i react-toastify (10)npm i sonner (11)npm i @tanstack/react-query-devtools --save-dev (12)npm i next-themes (13)npm install lucide-react 
+
+## Install Prisma
+
+npm install prisma --save-dev || npm i @prisma/client
+
+## install Shadcn
+
+npx shadcn-ui@latest add 
 
 ## Deploy on Vercel
 
